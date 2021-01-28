@@ -4,61 +4,7 @@
 
 ## Overview
 
-This is a REST API and performs filesystem operations creating and editing directories on the fileystem.
-
-This project was initially created as an exercise in microservice architecture and testing strategy, but would also be a suitable starter for a production environment.
-
-There is example client code that consumes repo on Github at [print2a.com](https://github.com/MSFTserver/print2a.com).
-
-    ┌──────────────────────────────────────────────────────────────────────────┐
-    │                                                                          │
-    │       print2a API                                                        │
-    │       Docker / Node 14.x runtime                                         │
-    │                                                                          │
-    │      ┌──────────────────┐                                                │
-    │      │                  │                      ┌──────────────────┐      │
-    │      │   Express REST   │                      │                  │      │
-    │      │        API       │                      │    Swagger UI    │      │
-    │      │                  │ ──── Generates─────▶ │                  │      │
-    │      │         /        │                      │     /api-docs    │      │
-    │      │                  │                      │                  │      │
-    │      └──────────────────┘                      └──────────────────┘      │
-    │           ▲    ▲                                                         │
-    │           │    │                                                         │
-    │           │    └────Exercises─────────────────┐                          │
-    │           │                                   │                          │
-    │           │                                   │                          │
-    │      Implements                    ┌─────────────────────┐               │
-    │           │                        │                     │               │
-    │           │                        │                     │               │
-    │           │                        │  Mocha test suite   │               │
-    │           │                        │                     │               │
-    │           │                        │                     │               │
-    │           │                        └─────────────────────┘               │
-    │           │                                   ▲                          │
-    └───────────┼───────────────────────────────────┼──────────────────────────┘
-                │                                   │
-                │                                   │
-                │                             Orchestrates
-                │                                   │
-                │                                   │
-      ┌───────────────────┐              ┌─────────────────────┐
-      │                   │              │                     │
-      │                   │              │     Continuous      │
-      │    print2a repo   │              │  integration with   │
-      │       React       │              │   Github Actions    │
-      │                   │              │                     │
-      └───────────────────┘              └─────────────────────┘
-
-## Screenshots
-
-![Screenshot 1](screenshot-swagger.png)
-
-_Screenshot: Generated Swagger documentation at /api-doc_
-
-![Screenshot 2](screenshot-tests.png)
-
-_Screenshot: Mocha test output_
+This is a REST API and Displays directories on the fileystem.
 
 ## Quickstart
 

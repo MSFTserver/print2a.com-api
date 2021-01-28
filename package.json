@@ -1,0 +1,32 @@
+{
+  "name": "print2a-api",
+  "version": "1.0.6",
+  "description": "print2a API",
+  "repository": "none",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "PRINT2A_API_PORT=5758 nodemon --exec \"mocha\"",
+    "test:ci": "PRINT2A_API_PORT=5758 mocha --exit",
+    "test:coverage": "nyc --reporter=text --timeout=3000 mocha --exit ./src/server.js",
+    "start": "node src/server.js",
+    "develop": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.0.1",
+    "del": "^5.1.0",
+    "eslint-plugin-mocha": "^7.0.1",
+    "nyc": "^15.1.0",
+    "nodemon": "^2.0.4"
+  }
+}

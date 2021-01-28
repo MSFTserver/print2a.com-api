@@ -6,7 +6,7 @@ export default async (req, res) => {
   // The default starting path is the directory from which server is executed.
   // Otherwise, get the full path keyed under unnamed Express parameter '0'.
   const requestedFilePath =
-    "../../repo/print2a/" + req.params["0"] || "../../repo/print2a";
+    "../repo/print2a/" + req.params["0"] || "../repo/print2a";
 
   // getDirectories
   //
@@ -27,7 +27,6 @@ export default async (req, res) => {
   //
 
   const handleDirectoryRequest = async () => {
-    console.log(requestedFilePath)
     const dirEntries = await fs.readdir(requestedFilePath);
     const nodes = await Promise.all(
       dirEntries.map(async node => {
@@ -71,7 +70,6 @@ export default async (req, res) => {
   //
   fs.access(requestedFilePath)
     .then(async () => {
-      console.log("Accessing: " + requestedFilePath);
       const requestStats = await fs.stat(requestedFilePath);
       const isRequestingDirectory = requestStats.isDirectory();
       if (isRequestingDirectory) {
@@ -80,5 +78,7 @@ export default async (req, res) => {
         handleFileRequest();
       }
     })
-    .catch(() => res.status(404).send("404 Not found"));
+    .catch(() => {
+      res.status(404).send("404 Not found<br>"+requestedFilePath)
+    });
 };

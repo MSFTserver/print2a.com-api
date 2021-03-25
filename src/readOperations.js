@@ -6,7 +6,7 @@ export default async (req, res) => {
   // The default starting path is the directory from which server is executed.
   // Otherwise, get the full path keyed under unnamed Express parameter '0'.
   const requestedFilePath =
-    "../repo/print2a/" + req.params["0"] || "../repo/print2a";
+    "../repo/" + req.params["0"] || "../repo/";
 
   // getDirectories
   //
@@ -38,7 +38,7 @@ export default async (req, res) => {
           childrenCount = children.length;
         }
         return {
-          id: path.replace("../../", ""),
+          id: path.replace("../", "").replace("//","/"),
           name: node,
           mode: modeToOctal(nodeStats.mode),
           size: nodeStats.size,

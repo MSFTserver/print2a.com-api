@@ -17,9 +17,7 @@ app.use(cors());
 
 const corsOptions = {
   key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
-  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem"),
-  origin: 'https://print2a.com',
-  optionsSuccessStatus: 200
+  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
 };
 
 // Swagger

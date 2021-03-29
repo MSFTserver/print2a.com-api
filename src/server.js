@@ -8,7 +8,7 @@ import cors from "cors";
 import readOperations from "./readOperations.js";
 import chalk from "chalk";
 
-const port = process.env.PRINT2A_API_PORT || 5757;
+const port = process.env.PRINT2A_API_PORT || 5756;
 const host = process.env.PRINT2A_API_HOST || "0.0.0.0";
 
 const app = express();
@@ -17,7 +17,9 @@ app.use(cors());
 
 const corsOptions = {
   key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
-  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
+  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem"),
+  origin: 'https://print2a.com',
+  optionsSuccessStatus: 200
 };
 
 // Swagger
@@ -41,9 +43,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *          description: The resource does not exist on the filesystem
  *
  */
-app.get("/*", cors(corsOptions), readOperations);
+app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);
-
+https.createServer(corsOptions, app).listen(7575);
 export default app;

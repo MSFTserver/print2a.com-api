@@ -8,7 +8,7 @@ import cors from "cors";
 import readOperations from "./readOperations.js";
 import chalk from "chalk";
 
-const port = process.env.PRINT2A_API_PORT || 5757;
+const port = process.env.PRINT2A_API_PORT || 5756;
 const host = process.env.PRINT2A_API_HOST || "0.0.0.0";
 
 const app = express();
@@ -45,5 +45,5 @@ app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);
-https.createServer(corsOptions, app).listen(5756);
+https.createServer(corsOptions, app).listen(5757);
 export default app;

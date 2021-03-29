@@ -15,6 +15,11 @@ const app = express();
 
 app.use(cors());
 
+const corsOptions = {
+  key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
+  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
+};
+
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
@@ -36,15 +41,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *          description: The resource does not exist on the filesystem
  *
  */
-app.get("/*", readOperations);
+app.get("/*", cors(corsOptions), readOperations);
 
 // Mount the app
-//
-
-const options = {
-  key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
-  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
-};
 app.listen(port, host);
 
 export default app;

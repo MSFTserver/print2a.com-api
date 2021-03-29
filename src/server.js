@@ -1,4 +1,6 @@
 "use strict";
+import https from "https";
+import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import specs from "./swagger.js";
 import express from "express";
@@ -12,6 +14,11 @@ const host = process.env.PRINT2A_API_HOST || "0.0.0.0";
 const app = express();
 
 app.use(cors());
+
+const corsOptions = {
+  key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
+  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
+};
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
@@ -38,4 +45,5 @@ app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);
+https.createServer(corsOptions, app).listen(5756);
 export default app;

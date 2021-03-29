@@ -47,5 +47,5 @@ app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);
-https.createServer(corsOptions, app).listen(7575);
+https.createServer(corsOptions, app).listen(5757);
 export default app;

@@ -1,4 +1,6 @@
 "use strict";
+import https from "https";
+import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import specs from "./swagger.js";
 import express from "express";
@@ -38,6 +40,11 @@ app.get("/*", readOperations);
 
 // Mount the app
 //
+
+const options = {
+  key: fs.readFileSync("/etc/nginx/ssl/print2a_key.pem"),
+  cert: fs.readFileSync("/etc/nginx/ssl/print2a_cert.pem")
+};
 app.listen(port, host);
 
 export default app;

@@ -38,7 +38,7 @@ export default async (req, res) => {
           childrenCount = children.length;
         }
         return {
-          id: path.replace("../", "").replace("//","/"),
+          id: path.replace("//","/").replace("../../repo/", ""),
           name: node,
           mode: modeToOctal(nodeStats.mode),
           size: nodeStats.size,

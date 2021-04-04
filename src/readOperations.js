@@ -10,6 +10,8 @@ export default async (req, res) => {
   let requestedPath = `../../repo/${req.params[0]}` || `../../repo/`;
   if (req.url.startsWith("/DLZIP")){
     requestedPath = `../../${req.params[0].replace(/\//g,"+").replace("+","/")}`
+  } else if (req.url.startsWith("/LatestProjects")){
+    requestedPath = `../print2a.com-stats/latest.json`
   }
   // getDirectories
   //
@@ -100,6 +102,11 @@ export default async (req, res) => {
     }
   };
 
+  const handleLatestRequest = async () => {
+    const latestProjects = fs.readFileSync('../print2a-stats/latest.json');
+    res.json(json.parse(latestProjects));
+  }
+
   // Check if the path is accessible.
   // Then return the directory, file or 404.
   //
@@ -108,7 +115,9 @@ export default async (req, res) => {
       const requestStats = await fs.stat(requestedPath);
       const isRequestingDirectory = requestStats.isDirectory();
       const isRequestingFolder = req.headers.request;
-      if (isRequestingDirectory && !isRequestingFolder) {
+      if (requestedPath == "/LatestProjects") {
+        handleLatestRequest();
+      } else if (isRequestingDirectory && !isRequestingFolder) {
         handleDirectoryRequest();
       } else if (!isRequestingDirectory && !isRequestingFolder) {
         handleFileRequest();

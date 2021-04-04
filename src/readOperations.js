@@ -104,7 +104,7 @@ export default async (req, res) => {
 
   const handleLatestRequest = async () => {
     const latestProjects = await fs.readFile(requestedPath);
-    res.json(latestProjects);
+    res.json(json.parse(latestProjects));
   }
 
   // Check if the path is accessible.

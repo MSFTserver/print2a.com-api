@@ -11,7 +11,6 @@ export default async (req, res) => {
   if (req.url.startsWith("/DLZIP")){
     requestedPath = `../../${req.params[0].replace(/\//g,"+").replace("+","/")}`
   } else if (req.url.startsWith("/LatestProjects")){
-    console.log("1");
     requestedPath = `../print2a.com-stats/latest.json`
   }
   // getDirectories
@@ -104,7 +103,6 @@ export default async (req, res) => {
   };
 
   const handleLatestRequest = async () => {
-    console.log("3");
     const latestProjects = await fs.readFileSync(requestedPath);
     res.json(latestProjects);
   }
@@ -117,8 +115,7 @@ export default async (req, res) => {
       const requestStats = await fs.stat(requestedPath);
       const isRequestingDirectory = requestStats.isDirectory();
       const isRequestingFolder = req.headers.request;
-      if (requestedPath == "/LatestProjects") {
-        console.log("2");
+      if (requestedPath == `../print2a.com-stats/latest.json`) {
         handleLatestRequest();
       } else if (isRequestingDirectory && !isRequestingFolder) {
         handleDirectoryRequest();

@@ -103,7 +103,7 @@ export default async (req, res) => {
   };
 
   const handleLatestRequest = async () => {
-    const latestProjects = await fs.readFileSync(requestedPath);
+    const latestProjects = await fs.readFile(requestedPath);
     res.json(latestProjects);
   }
 

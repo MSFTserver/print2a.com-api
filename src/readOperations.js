@@ -103,7 +103,7 @@ export default async (req, res) => {
   };
 
   const handleLatestRequest = async () => {
-    const latestProjects = fs.readFileSync('../print2a-stats/latest.json');
+    const latestProjects = fs.readFileSync(requestedPath);
     res.json(json.parse(latestProjects));
   }
 

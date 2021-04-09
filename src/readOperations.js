@@ -6,12 +6,17 @@ import { getUserName, modeToOctal, sizeToHuman } from "./util.js";
 export default async (req, res) => {
   // The default starting path is the directory from which server is executed.
   // Otherwise, get the full path keyed under unnamed Express parameter '0'.
-  const print2aApiUrl = "https://print2a.com:5757"
-  let requestedPath = `../../repo/${req.params[0]}` || `../../repo/`;
-  if (req.url.startsWith("/DLZIP")){
-    requestedPath = `../../${req.params[0].replace(/\//g,"+").replace("+","/")}`
+  const print2aApiUrl = "https://print2a.com:5757";
+  const mainPath = "/mnt/volume_sfo2_01";
+  const latestPath = "../print2a.com-stats/latest.json";
+  const dlFolderName = "DLZIP";
+  const repoPath = `${mainPath}/repo`;
+  const dlPath = `${mainPath}/${dlFolderName}`;
+  let requestedPath = `${repoPath}/${req.params[0]}` || repoPath;
+  if (req.url.startsWith(`/${dlFolderName}`)){
+    requestedPath = `${mainPath}/${req.params[0].replace(/\//g,"+").replace("+","/")}`;
   } else if (req.url.startsWith("/LatestProjects")){
-    requestedPath = `../print2a.com-stats/latest.json`
+    requestedPath = latestPath
   }
   // getDirectories
   //
@@ -43,7 +48,7 @@ export default async (req, res) => {
           childrenCount = children.length;
         }
         return {
-          id: path.replace("//","/").replace("../../repo/", ""),
+          id: path.replace("//","/").replace(`${repoPath}/`, ""),
           name: node,
           mode: modeToOctal(nodeStats.mode),
           size: nodeStats.size,
@@ -77,18 +82,18 @@ export default async (req, res) => {
   const handleFolderRequest = async () => {
     const folderName = path.basename(requestedPath);
     console.log(folderName)
-    console.log(`../../repo/${req.params[0]}`);
-    let folderContents = await fs.readdir(`../../DLZIP/`)
+    console.log(`${repoPath}/${req.params[0]}`);
+    let folderContents = await fs.readdir(dlPath)
     console.log(folderContents.includes(`${req.params[0].replace(/\//g,"+")}.zip`))
     if (!folderContents.includes(`${req.params[0].replace(/\//g,"+")}.zip`)) {
-      zipFolder(`../../repo/${req.params[0]}`, `../../DLZIP/${req.params[0].replace(/\//g,"+")}.zip`, function(err) {
+      zipFolder(`${repoPath}/${req.params[0]}`, `${dlPath}/${req.params[0].replace(/\//g,"+")}.zip`, function(err) {
           if(err) {
               console.log('oh no!', err);
               res.json({status:`ERROR`,msg: err})
           } else {
               res.json({
                 status:`COMPLETE`,
-                link:`${print2aApiUrl}/DLZIP/${req.params[0].replace(/\//g,"+")}.zip`,
+                link:`${print2aApiUrl}/${dlFolderName}/${req.params[0].replace(/\//g,"+")}.zip`,
                 fileName: `${req.params[0].replace(/\//g,"+")}.zip`
               })
           }
@@ -96,7 +101,7 @@ export default async (req, res) => {
     } else {
       res.json({
         status:`COMPLETE`,
-        link:`${print2aApiUrl}/DLZIP/${req.params[0].replace(/\//g,"+")}.zip`,
+        link:`${print2aApiUrl}/${dlFolderName}/${req.params[0].replace(/\//g,"+")}.zip`,
         fileName: `${req.params[0].replace(/\//g,"+")}.zip`
       })
     }
@@ -115,7 +120,7 @@ export default async (req, res) => {
       const requestStats = await fs.stat(requestedPath);
       const isRequestingDirectory = requestStats.isDirectory();
       const isRequestingFolder = req.headers.request;
-      if (requestedPath == `../print2a.com-stats/latest.json`) {
+      if (requestedPath == latestPath) {
         handleLatestRequest();
       } else if (isRequestingDirectory && !isRequestingFolder) {
         handleDirectoryRequest();

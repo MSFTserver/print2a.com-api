@@ -12,8 +12,10 @@ export default async (req, res) => {
   const dlFolderName = "DLZIP";
   const repoPath = `${mainPath}/repo`;
   const dlPath = `${mainPath}/${dlFolderName}`;
-  console.log(req.params[0]);
-  let requestedPath = `${repoPath}/${req.params[0]}` || repoPath;
+  let requestedPath = repoPath;
+  if (!req.params[0].includes("../")){
+    requestedPath = `${repoPath}/${req.params[0]}`;
+  }
   if (req.url.startsWith(`/${dlFolderName}`)){
     requestedPath = `${mainPath}/${req.params[0].replace(/\//g,"+").replace("+","/")}`;
   } else if (req.url.startsWith("/LatestProjects")){

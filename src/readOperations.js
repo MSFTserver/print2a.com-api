@@ -13,22 +13,12 @@ export default async (req, res) => {
   const repoPath = `${mainPath}/repo`;
   const dlPath = `${mainPath}/${dlFolderName}`;
   let requestedPath = repoPath;
-  if (req.params[0]) {
-    if (!req.params[0].includes('../')) {
-      requestedPath = `${repoPath}/${req.params[0]}`;
-    }
-  }
-  if (req.url.startsWith(`/${dlFolderName}`)){
-    requestedPath = `${mainPath}/${req.params[0].replace(/\//g,"+").replace("+","/")}`;
-  } else if (req.url.startsWith("/LatestProjects")){
-    requestedPath = latestPath
-  }
+
   // getDirectories
   //
   // read directory from given path.
   // returns children folders and files.
-  //
-
+  // https://nodejs.org/api/fs.html#fs_fs_readdir_path_callback
   const getDirectories = async source => {
     let children = await fs.readdir(source, { withFileTypes: true });
     return children.map(dirent => source + "/" + dirent.name);
@@ -39,8 +29,6 @@ export default async (req, res) => {
   // See the async stat() docs for more response options.
   // Note we're using the Node.js fs_promises not regular synchronous `fs`.
   // https://nodejs.org/api/fs.html#fs_fs_promises_api
-  //
-
   const handleDirectoryRequest = async () => {
     const dirEntries = await fs.readdir(requestedPath);
     const nodes = await Promise.all(
@@ -112,30 +100,61 @@ export default async (req, res) => {
     }
   };
 
+  // handleLatestRequest
+  //
+  // Return latest.json file
+  // https://nodejs.org/api/fs.html#filehandlereadfileoptions
   const handleLatestRequest = async () => {
     const latestProjects = await fs.readFile(requestedPath);
     res.json(JSON.parse(latestProjects));
   }
 
+  const handleGetObjectBuffer = async () => {
+    const objectFilePath = req.params[0];
+    const objectBuffer = await fs.readFile(objectFilePath);
+    objectBuffer = new Uint16Array(objectBuffer);
+    res.json(objectBuffer);
+  }
+
+  // handleGetObjectBuffer
+  //
   // Check if the path is accessible.
   // Then return the directory, file or 404.
-  //
-  fs.access(requestedPath)
-    .then(async () => {
-      const requestStats = await fs.stat(requestedPath);
-      const isRequestingDirectory = requestStats.isDirectory();
-      const isRequestingFolder = req.headers.request;
-      if (requestedPath == latestPath) {
-        handleLatestRequest();
-      } else if (isRequestingDirectory && !isRequestingFolder) {
-        handleDirectoryRequest();
-      } else if (!isRequestingDirectory && !isRequestingFolder) {
-        handleFileRequest();
-      } else if (isRequestingDirectory && isRequestingFolder){
-        handleFolderRequest()
-      }
-    })
-    .catch(() => {
-      res.status(404).send("404 Not found<br>"+requestedPath)
-    });
-};
+  // https://nodejs.org/api/fs.html#fs_fs_accesssync_path_mode
+  // https://nodejs.org/api/fs.html#fs_fs_statsync_path
+  const handleChonkyActions = async () => {
+      fs.access(requestedPath).then(async () => {
+        const requestStats = await fs.stat(requestedPath);
+        const isRequestingDirectory = requestStats.isDirectory();
+        const isRequestingFolder = req.headers.request;
+        if (isRequestingDirectory && !isRequestingFolder) {
+          // gets the requested directory to navigate Chonky
+          handleDirectoryRequest();
+        } else if (!isRequestingDirectory && !isRequestingFolder) {
+          // gets the requested file download
+          handleFileRequest();
+        } else if (isRequestingDirectory && isRequestingFolder){
+          // gets the requested folder download as .zip
+          handleFolderRequest();
+        }
+      })
+      .catch(() => {
+        res.status(404).send("404 Not found<br>"+requestedPath);
+      });
+  };
+
+  if (req.params[0]) {
+    if (!req.params[0].includes('../')) {
+      requestedPath = `${repoPath}/${req.params[0]}`;
+    }
+  };
+  if (req.url.startsWith(`/${dlFolderName}`)){
+    requestedPath = `${mainPath}/${req.params[0].replace(/\//g,"+").replace("+","/")}`;
+    handleChonkyActions();
+  } else if (req.url.startsWith("/LatestProjects")){
+    requestedPath = latestPath;
+    handleLatestRequest();
+  } else if (req.url.startsWith("/GetModelBuffer")){
+    requestedPath = `${repoPath}/${req.params[0]}`;
+    handleGetObjectBuffer();
+  };

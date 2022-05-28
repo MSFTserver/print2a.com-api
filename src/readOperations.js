@@ -111,9 +111,17 @@ export default async (req, res) => {
 
   const handleGetObjectBuffer = async () => {
     const objectFilePath = req.params[0];
-    const objectBuffer = await fs.readFile(objectFilePath);
-    objectBuffer = new Uint16Array(objectBuffer);
-    res.json(objectBuffer);
+    console.log(req.params[0])
+    //let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
+    //objectBuffer = new Uint16Array(objectBuffer);
+    //res.json(objectBuffer);
+  }
+
+  const handleGetmdFile = async () => {
+    const mdFilePath = req.params[0];
+    console.log(req.params[0])
+    //const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
+    //res.send(mdBuffer);
   }
 
   // handleGetObjectBuffer
@@ -157,4 +165,7 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/GetModelBuffer")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetObjectBuffer();
+  } else if (req.url.startsWith("/GetmdFile")){
+    requestedPath = `${repoPath}/${req.params[0]}`;
+    handleGetmdFile();
   };

@@ -111,7 +111,7 @@ export default async (req, res) => {
 
   const handleGetObjectBuffer = async () => {
     const objectFilePath = req.params[0];
-    console.log(req.params[0])
+    res.send(req.params[0])
     //let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
     //objectBuffer = new Uint16Array(objectBuffer);
     //res.json(objectBuffer);
@@ -119,7 +119,7 @@ export default async (req, res) => {
 
   const handleGetmdFile = async () => {
     const mdFilePath = req.params[0];
-    console.log(req.params[0])
+    res.send(req.params[0])
     //const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
     //res.send(mdBuffer);
   }

@@ -13,16 +13,7 @@ export default async (req, res) => {
   const repoPath = `${mainPath}/repo`;
   const dlPath = `${mainPath}/${dlFolderName}`;
   let requestedPath = repoPath;
-  if (req.params[0]) {
-    if (!req.params[0].includes('../')) {
-      requestedPath = `${repoPath}/${req.params[0]}`;
-    }
-  }
-  if (req.url.startsWith(`/${dlFolderName}`)){
-    requestedPath = `${mainPath}/${req.params[0].replace(/\//g,"+").replace("+","/")}`;
-  } else if (req.url.startsWith("/LatestProjects")){
-    requestedPath = latestPath
-  }
+
   // getDirectories
   //
   // read directory from given path.

@@ -1,6 +1,7 @@
 import { promises as fs } from "fs";
 import zipFolder from "zip-folder";
 import path from "path";
+import { marked } from 'marked';
 import { getUserName, modeToOctal, sizeToHuman } from "./util.js";
 
 export default async (req, res) => {
@@ -110,18 +111,17 @@ export default async (req, res) => {
   }
 
   const handleGetObjectBuffer = async () => {
-    const objectFilePath = req.params[0];
-    res.send(req.params[0])
-    //let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
-    //objectBuffer = new Uint16Array(objectBuffer);
-    //res.json(objectBuffer);
+    const objectFilePath = req.query.fileLocation;
+    let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
+    objectBuffer = new Uint16Array(objectBuffer);
+    res.json(objectBuffer);
   }
 
   const handleGetmdFile = async () => {
-    const mdFilePath = req.params[0];
-    res.send(req.params[0])
-    //const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
-    //res.send(mdBuffer);
+    const mdFilePath = req.query.fileLocation;
+    const mdContent = await fs.readFile(`${repoPath}/${mdFilePath}`);
+    res.set('Content-Type', 'text/plain');
+    res.send(mdContent.toString());
   }
 
   // handleGetObjectBuffer
@@ -165,7 +165,7 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/GetModelBuffer")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetObjectBuffer();
-  } else if (req.url.startsWith("/GetmdFile")){
+  } else if (req.url.startsWith("/GetTextFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetmdFile();
   } else {

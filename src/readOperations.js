@@ -168,6 +168,5 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/GetmdFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetmdFile();
-  } else {
-    handleChonkyActions();
   }
+}

@@ -119,9 +119,9 @@ export default async (req, res) => {
 
   const handleGetmdFile = async () => {
     const mdFilePath = req.params[0];
-    res.json(req.query.fileLocation)
-    //const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
-    //res.send(mdBuffer);
+    //res.json(req.query.fileLocation)
+    const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
+    res.send(mdBuffer);
   }
 
   // handleGetObjectBuffer

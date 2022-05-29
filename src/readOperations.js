@@ -110,16 +110,14 @@ export default async (req, res) => {
   }
 
   const handleGetObjectBuffer = async () => {
-    const objectFilePath = req.params[0];
-    res.json(req.query)
-    //let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
-    //objectBuffer = new Uint16Array(objectBuffer);
-    //res.json(objectBuffer);
+    const objectFilePath = req.query.fileLocation;
+    let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
+    objectBuffer = new Uint16Array(objectBuffer);
+    res.json(objectBuffer);
   }
 
   const handleGetmdFile = async () => {
     const mdFilePath = req.query.fileLocation;
-    //res.json(req.query.fileLocation)
     const mdBuffer = await fs.readFile(`${repoPath}/${mdFilePath}`);
     res.json(mdBuffer);
   }

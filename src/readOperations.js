@@ -8,7 +8,7 @@ export default async (req, res) => {
   // Otherwise, get the full path keyed under unnamed Express parameter '0'.
   const print2aApiUrl = "https://print2a.com:5757";
   const mainPath = "/mnt/volume_sfo2_01";
-  const latestPath = "print2a.com-stats/latest.json";
+  const latestPath = "../print2a.com-stats/latest.json";
   const dlFolderName = "DLZIP";
   const repoPath = `${mainPath}/repo`;
   const dlPath = `${mainPath}/${dlFolderName}`;

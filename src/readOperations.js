@@ -1,6 +1,7 @@
 import { promises as fs } from "fs";
 import zipFolder from "zip-folder";
 import path from "path";
+import { marked } from 'marked';
 import { getUserName, modeToOctal, sizeToHuman } from "./util.js";
 
 export default async (req, res) => {
@@ -119,7 +120,7 @@ export default async (req, res) => {
   const handleGetmdFile = async () => {
     const mdFilePath = req.query.fileLocation;
     const mdContent = await fs.readFile(`${repoPath}/${mdFilePath}`);
-    res.send(mdContent.toString());
+    res.send(marked(mdContent.toString()));
   }
 
   // handleGetObjectBuffer

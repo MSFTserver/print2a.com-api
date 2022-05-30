@@ -67,9 +67,6 @@ export default async (req, res) => {
   const handleFileRequest = async () => {
     const fileName = path.basename(requestedPath);
     const fileExt = fileName.split(".").pop();
-    if (fileExt === "pdf") {
-      res.contentType("application/pdf");
-    }
     res.download(requestedPath, fileName);
   };
 

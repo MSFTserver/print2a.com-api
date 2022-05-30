@@ -132,6 +132,8 @@ export default async (req, res) => {
       } else {
         res.send(textContent.toString());
       }
+    } else {
+      res.send("FBI has been contacted!!!")
     }
   }
 

@@ -167,7 +167,7 @@ export default async (req, res) => {
     handleGetObjectBuffer();
   } else if (req.url.startsWith("/GetTextFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
-    handleGetmdFile();
+    handleGetTextFile();
   } else {
     handleChonkyActions();
   }

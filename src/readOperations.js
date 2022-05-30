@@ -122,11 +122,10 @@ export default async (req, res) => {
     const textContent = await fs.readFile(`${repoPath}/${textFilePath}`,'utf8');
     const fileName = req.query.fileLocation.split("/").pop();
     const fileExt = fileName.split(".").pop();
+    res.set('Content-Type', 'text/plain');
     if (fileExt === "md") {
-      res.set('Content-Type', 'text/plain');
       res.send(textContent.toString());
     } else {
-      res.set('Content-Type', 'text/html');
       res.send(textContent.toString());
     }
   }

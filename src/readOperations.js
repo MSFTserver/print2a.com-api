@@ -119,7 +119,7 @@ export default async (req, res) => {
 
   const handleGetTextFile = async () => {
     const textFilePath = req.query.fileLocation;
-    const textContent = await fs.readFile(`${repoPath}/${textFilePath}`);
+    const textContent = await fs.readFile(`${repoPath}/${textFilePath}`,'utf8');
     const fileName = req.query.fileLocation.split("/").pop();
     const fileExt = fileName.split(".").pop();
     if (fileExt === "md") {

@@ -161,6 +161,7 @@ export default async (req, res) => {
   };
 
   if (req.params[0]) {
+    console.log("REQ: ",req.params[0])
     if (!req.params[0].includes('../')) {
       requestedPath = `${repoPath}/${req.params[0]}`;
     }

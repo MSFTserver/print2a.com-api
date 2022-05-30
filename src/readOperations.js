@@ -165,7 +165,7 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/GetModelBuffer")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetObjectBuffer();
-  } else if (req.url.startsWith("/GetmdFile")){
+  } else if (req.url.startsWith("/GetTextFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetmdFile();
   } else {

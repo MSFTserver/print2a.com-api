@@ -118,18 +118,20 @@ export default async (req, res) => {
     res.json(objectBuffer);
   }
 
-  const handleGetTextFile = async () => {
-    const textFilePath = req.query.fileLocation;
-    const fileName = req.query.fileLocation.split("/").pop();
-    const fileExt = fileName.split(".").pop();
-    const textContent = await fs.readFile(
-      `${repoPath}/${textFilePath}`
-    );
-    res.set('Content-Type', 'text/plain');
-    if (fileExt === "pdf") {
-      res.send(textContent.toString('base64'));
-    } else {
-      res.send(textContent.toString());
+  const handleGetTextFile = async (serveFile) => {
+    if (serveFile) {
+      const textFilePath = req.query.fileLocation;
+      const fileName = req.query.fileLocation.split("/").pop();
+      const fileExt = fileName.split(".").pop();
+      const textContent = await fs.readFile(
+        `${repoPath}/${textFilePath}`
+      );
+      res.set('Content-Type', 'text/plain');
+      if (fileExt === "pdf") {
+        res.send(textContent.toString('base64'));
+      } else {
+        res.send(textContent.toString());
+      }
     }
   }
 
@@ -159,14 +161,13 @@ export default async (req, res) => {
         res.status(404).send("404 Not found<br>"+requestedPath);
       });
   };
-
+  let serveFile = true;
   if (req.params[0]) {
     console.log(req.params[0])
     if (req.params[0] === 'GetTextFile') {
-      console.log("test")
       let urlParams = req.query;
       if (urlParams.fileLocation.startsWith("../")) {
-        console.log("Params: ",urlParams);
+        serveFile = false;
       }
     } else if (!req.params[0].includes('../')) {
       requestedPath = `${repoPath}/${req.params[0]}`;
@@ -183,7 +184,7 @@ export default async (req, res) => {
     handleGetObjectBuffer();
   } else if (req.url.startsWith("/GetTextFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
-    handleGetTextFile();
+    handleGetTextFile(serveFile);
   } else {
     handleChonkyActions();
   }

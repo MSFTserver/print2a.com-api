@@ -120,11 +120,12 @@ export default async (req, res) => {
 
   const handleGetTextFile = async () => {
     const textFilePath = req.query.fileLocation;
-    const textContent = await fs.readFile(`${repoPath}/${textFilePath}`,'utf8');
     const fileName = req.query.fileLocation.split("/").pop();
     const fileExt = fileName.split(".").pop();
+    const textContent = await fs.readFile(`${repoPath}/${textFilePath}`, {fileExt === 'pdf' ? 'base64' : 'utf8'});
     res.set('Content-Type', 'text/plain');
     if (fileExt === "pdf") {
+      res.set('Content-Type', 'application/pdf');
       res.send(textContent.toString('base64'));
     } else {
       res.send(textContent.toString());

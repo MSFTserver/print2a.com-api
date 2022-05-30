@@ -161,9 +161,11 @@ export default async (req, res) => {
   };
 
   if (req.params[0]) {
-    console.log("REQ: ",req.url)
     if (!req.params[0].includes('../')) {
       requestedPath = `${repoPath}/${req.params[0]}`;
+    } else if (req.params[0] === 'GetTextFile') {
+      urlParams = req.query;
+      console.log(urlParams);
     }
   };
   if (req.url.startsWith(`/${dlFolderName}`)){

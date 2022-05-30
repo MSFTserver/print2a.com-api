@@ -123,7 +123,8 @@ export default async (req, res) => {
     const fileName = req.query.fileLocation.split("/").pop();
     const fileExt = fileName.split(".").pop();
     const textContent = await fs.readFile(
-      `${repoPath}/${textFilePath}`
+      `${repoPath}/${textFilePath}`,
+      `${fileExt === 'pdf' ? 'binary' : 'utf8'}`
     );
     res.set('Content-Type', 'text/plain');
     if (fileExt === "pdf") {

@@ -120,7 +120,7 @@ export default async (req, res) => {
   const handleGetTextFile = async () => {
     const textFilePath = req.query.fileLocation;
     const textContent = await fs.readFile(`${repoPath}/${textFilePath}`);
-    res.set('Content-Type', 'text/plain');
+    //res.set('Content-Type', 'text/plain');
     res.send(textContent.toString());
   }
 

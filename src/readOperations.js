@@ -126,7 +126,8 @@ export default async (req, res) => {
     res.set('Content-Type', 'text/plain');
     if (fileExt === "pdf") {
       let bufferContent = new Uint16Array(textContent);
-      res.send(bufferContent.toString());
+      console.log(bufferContent)
+      res.send(textContent);
     } else {
       res.send(textContent.toString());
     }

@@ -168,7 +168,11 @@ export default async (req, res) => {
     console.log(req.params[0])
     if (req.params[0] === 'GetTextFile') {
       let urlParams = req.query;
-      if (urlParams.fileLocation.startsWith("../")) {
+      if (
+        urlParams.fileLocation.startsWith("../") ||
+        urlParams.fileLocation.startsWith("./") ||
+        urlParams.fileLocation.startsWith("~/")
+        ) {
         serveFile = false;
       }
     } else if (!req.params[0].includes('../')) {

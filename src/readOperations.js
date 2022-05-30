@@ -127,7 +127,7 @@ export default async (req, res) => {
     );
     res.set('Content-Type', 'text/plain');
     if (fileExt === "pdf") {
-      res.send(textContent.toString());
+      res.send(textContent.toString('base64'));
     } else {
       res.send(textContent.toString());
     }

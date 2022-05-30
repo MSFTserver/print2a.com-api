@@ -133,7 +133,7 @@ export default async (req, res) => {
         res.send(textContent.toString());
       }
     } else {
-      res.send("FBI has been contacted!!!")
+      res.status(404).send("FBI has been contacted!!!")
     }
   }
 

@@ -126,7 +126,7 @@ export default async (req, res) => {
       res.set('Content-Type', 'text/plain');
       res.send(textContent.toString());
     } else {
-      console.log(textContent.toString())
+      res.set('Content-Type', 'text/html');
       res.send(textContent.toString());
     }
   }

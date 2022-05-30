@@ -117,11 +117,11 @@ export default async (req, res) => {
     res.json(objectBuffer);
   }
 
-  const handleGetmdFile = async () => {
-    const mdFilePath = req.query.fileLocation;
-    const mdContent = await fs.readFile(`${repoPath}/${mdFilePath}`);
+  const handleGetTextFile = async () => {
+    const textFilePath = req.query.fileLocation;
+    const textContent = await fs.readFile(`${repoPath}/${textFilePath}`);
     res.set('Content-Type', 'text/plain');
-    res.send(mdContent.toString());
+    res.send(textContent.toString());
   }
 
   // handleGetObjectBuffer

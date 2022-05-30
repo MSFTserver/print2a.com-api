@@ -164,7 +164,7 @@ export default async (req, res) => {
     console.log(req.params[0])
     if (req.params[0] === 'GetTextFile') {
       console.log("test")
-      urlParams = req.query;
+      let urlParams = req.query;
       console.log("Params: ",urlParams);
     } else if (!req.params[0].includes('../')) {
       requestedPath = `${repoPath}/${req.params[0]}`;

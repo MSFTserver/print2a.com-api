@@ -127,11 +127,8 @@ export default async (req, res) => {
         `${repoPath}/${textFilePath}`
       );
       res.set('Content-Type', 'text/plain');
-      if (fileExt === "pdf") {
+      if (fileExt === "pdf" || ['png', 'jpg'].includes(fileExt)) {
         res.send(textContent.toString('base64'));
-      } else if (['png', 'jpg'].includes(fileExt)){
-        res.set('Content-Type', `text/${fileExt === 'jpg' ? 'jpeg' : 'png'}`);
-        res.end(textContent);
       } else {
         res.send(textContent.toString());
       }

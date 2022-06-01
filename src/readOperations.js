@@ -129,6 +129,8 @@ export default async (req, res) => {
       res.set('Content-Type', 'text/plain');
       if (fileExt === "pdf") {
         res.send(textContent.toString('base64'));
+      } else if (['png', 'jpg'].includes(fileExt)){
+        res.send(textContent);
       } else {
         res.send(textContent.toString());
       }

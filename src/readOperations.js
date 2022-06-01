@@ -131,7 +131,7 @@ export default async (req, res) => {
         res.send(textContent.toString('base64'));
       } else if (['png', 'jpg'].includes(fileExt)){
         res.set('Content-Type', `text/${fileExt === 'jpg' ? 'jpeg' : 'png'}`);
-        res.send(textContent);
+        res.end(textContent);
       } else {
         res.send(textContent.toString());
       }

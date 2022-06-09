@@ -111,26 +111,22 @@ export default async (req, res) => {
     res.json(JSON.parse(latestProjects));
   }
 
-  const handleGetObjectBuffer = async () => {
-    const objectFilePath = req.query.fileLocation;
-    let objectBuffer = await fs.readFile(`${repoPath}/${objectFilePath}`);
-    objectBuffer = new Uint16Array(objectBuffer);
-    res.json(objectBuffer);
-  }
-
-  const handleGetTextFile = async (serveFile) => {
+  const handleGetFile = async (serveFile) => {
     if (serveFile) {
-      const textFilePath = req.query.fileLocation;
+      const filePath = req.query.fileLocation;
       const fileName = req.query.fileLocation.split("/").pop();
       const fileExt = fileName.split(".").pop();
-      const textContent = await fs.readFile(
-        `${repoPath}/${textFilePath}`
+      const fileContent = await fs.readFile(
+        `${repoPath}/${filePath}`
       );
       res.set('Content-Type', 'text/plain');
-      if (fileExt === "pdf" || ['png', 'jpg'].includes(fileExt)) {
-        res.send(textContent.toString('base64'));
+      if (['pdf','png', 'jpg'].includes(fileExt)) {
+        res.send(fileContent.toString('base64'));
+      } else if (['stl', 'obj'].includes(fileExt)){
+        let objectBuffer = new Uint16Array(fileContent);
+        res.json(objectBuffer);
       } else {
-        res.send(textContent.toString());
+        res.send(fileContent.toString());
       }
     } else {
       res.status(404).send("FBI has been contacted!!!")
@@ -166,7 +162,7 @@ export default async (req, res) => {
   let serveFile = true;
   if (req.params[0]) {
     console.log(req.params[0])
-    if (req.params[0] === 'GetTextFile') {
+    if (req.params[0] === 'GetFile') {
       let urlParams = req.query;
       if (
         urlParams.fileLocation.startsWith("../") ||
@@ -188,9 +184,9 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/GetModelBuffer")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetObjectBuffer();
-  } else if (req.url.startsWith("/GetTextFile")){
+  } else if (req.url.startsWith("/GetFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
-    handleGetTextFile(serveFile);
+    handleGetFile(serveFile);
   } else {
     handleChonkyActions();
   }

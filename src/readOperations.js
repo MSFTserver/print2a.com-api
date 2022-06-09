@@ -124,7 +124,7 @@ export default async (req, res) => {
         res.send(fileContent.toString('base64'));
       } else if (['stl', 'obj'].includes(fileExt)){
         res.set('Contnet-Type', 'application/octet-stream');
-        //let objectBuffer = new Uint16Array(fileContent);
+        let objectBuffer = new Uint16Array(fileContent);
         res.json(fileContent);
       } else {
         res.send(fileContent.toString());

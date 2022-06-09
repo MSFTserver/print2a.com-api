@@ -125,7 +125,7 @@ export default async (req, res) => {
       } else if (['stl', 'obj'].includes(fileExt)){
         res.set('Contnet-Type', 'application/json');
         let objectBuffer = new Uint16Array(fileContent);
-        res.send(objectBuffer);
+        res.send(fileContent);
       } else {
         res.send(fileContent.toString());
       }

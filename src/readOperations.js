@@ -122,17 +122,16 @@ export default async (req, res) => {
       res.set('Content-Type', 'text/plain');
       if (['pdf','png', 'jpg'].includes(fileExt)) {
         res.send(fileContent.toString('base64'));
-      } else if (['stl', '3ds'].includes(fileExt)){
+      } else if (fileExt.toLowerCase() === 'stl') {
         res.set('Contnet-Type', 'application/json');
-        let objectBuffer = new Uint16Array(fileContent);
         res.send(fileContent);
-      } else if (['obj'].includes(fileExt)){
-        res.send(fileContent);
+      } else if (fileExt.toLowerCase() === 'obj') {
+        res.send(fileContent.toString());
       } else {
         res.send(fileContent.toString());
       }
     } else {
-      res.status(404).send("FBI has been contacted!!!")
+      res.status(404).send("Stop Trying to Hack my Shit you Pleb script kitty!")
     }
   }
 

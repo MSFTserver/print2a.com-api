@@ -164,7 +164,7 @@ export default async (req, res) => {
   let serveFile = true;
   if (req.params[0]) {
     console.log(req.params[0])
-    if (req.params[0] === 'GetFile') {
+    if (req.params[0] === 'GetFile' || req.params[0] === 'GetModelBuffer') {
       let urlParams = req.query;
       if (
         urlParams.fileLocation.startsWith("../") ||

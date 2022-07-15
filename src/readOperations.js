@@ -122,9 +122,11 @@ export default async (req, res) => {
       res.set('Content-Type', 'text/plain');
       if (['pdf','png', 'jpg'].includes(fileExt)) {
         res.send(fileContent.toString('base64'));
-      } else if (['stl', 'obj'].includes(fileExt)){
+      } else if (['stl', '3ds'].includes(fileExt)){
         res.set('Contnet-Type', 'application/json');
         let objectBuffer = new Uint16Array(fileContent);
+        res.send(fileContent);
+      } else if (['obj'].includes(fileExt)){
         res.send(fileContent);
       } else {
         res.send(fileContent.toString());

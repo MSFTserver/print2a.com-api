@@ -111,6 +111,10 @@ export default async (req, res) => {
     res.json(JSON.parse(latestProjects));
   }
 
+  // handleGetFile 
+  //
+  // Return a single files data, define fileLocation in request paramerter
+  // https://expressjs.com/en/api.html#res.send
   const handleGetFile = async (serveFile) => {
     if (serveFile) {
       const filePath = req.query.fileLocation;
@@ -161,13 +165,15 @@ export default async (req, res) => {
         res.status(404).send("404 Not found<br>"+requestedPath);
       });
   };
+
+  // determine what endpoint to handle
   let serveFile = true;
   if (req.params[0]) {
     console.log(req.params[0])
-    if (req.params[0] === 'GetFile' || req.params[0] === 'GetModelBuffer') {
+    if (req.params[0] === 'GetFile') {
       let urlParams = req.query;
       if (
-        urlParams.fileLocation.startsWith("../") ||
+        urlParams.fileLocation.includes("../") ||
         urlParams.fileLocation.startsWith("./") ||
         urlParams.fileLocation.startsWith("~/")
         ) {
@@ -183,9 +189,6 @@ export default async (req, res) => {
   } else if (req.url.startsWith("/LatestProjects")){
     requestedPath = latestPath;
     handleLatestRequest();
-  } else if (req.url.startsWith("/GetModelBuffer")){
-    requestedPath = `${repoPath}/${req.params[0]}`;
-    handleGetObjectBuffer();
   } else if (req.url.startsWith("/GetFile")){
     requestedPath = `${repoPath}/${req.params[0]}`;
     handleGetFile(serveFile);

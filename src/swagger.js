@@ -5,10 +5,11 @@ const options = {
   apis: ["src/*.js"],
   swaggerDefinition: {
     info: {
-      description: "Demo API for to get json data",
+      description: "API to get info from print2a repository",
       swagger: "2.0",
       title: "Print2a API",
-      version: "1.0.0"
+      version: "1.0.0",
+      servers: ['https://api.print2a.com']
     }
   },
   customCssUrl: "./src/swagger.css"

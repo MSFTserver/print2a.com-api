@@ -28,7 +28,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *
  * /:
  *   get:
- *     description: Get a response for an existing file or directory path, such that "http://localhost:5757/path/to/file.txt" reads a "/path/to/file.txt"
+ *     description: Get a response for an existing file or directory path
  *     produces:
  *       - application/json
  *     parameters:
@@ -36,12 +36,49 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         type: string
  *     responses:
  *       200:
- *         description: The response with file metadata, proxying fs.stat() — { name, mode, size, username, isDir, birthTime, mtime, ino, path }
+ *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }
  *       404:
  *          description: The resource does not exist on the filesystem
  *
  */
-app.get("/*", readOperations);
+app.get("/", readOperations);
+
+/**
+ * @swagger
+ *
+ * /GetFile:
+ *   get:
+ *     description: Get a response for an existing files data
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - [existing file path]: the path of the file or directory
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The response with file data, proxying fs.readFile()
+ *       404:
+ *          description: The resource does not exist on the filesystem
+ *
+ */
+ app.get("/GetFile", readOperations);
+
+ /**
+ * @swagger
+ *
+ * /LatesProjects:
+ *   get:
+ *     description: Get a response for the latest projects
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The response with latest projects and stats array, proxying fs.readFile() - [{title, tags, links},{...newFileData}]
+ *       404:
+ *          description: The resource does not exist on the filesystem
+ *
+ */
+app.get("/LatestProjects", readOperations);
 
 // Mount the app
 app.listen(port, host);

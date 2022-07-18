@@ -30,7 +30,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *   get:
  *     summary: get data for Chonky.io navigation
  *     description: Get a response for an existing file or directory path
- *     name: path/to/folder
  *     type: string
  *     produces:
  *       - application/json

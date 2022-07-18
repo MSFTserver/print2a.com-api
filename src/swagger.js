@@ -9,7 +9,7 @@ const options = {
       swagger: "2.0",
       title: "Print2a API",
       version: "1.0.0",
-      servers: ['https://api.print2a.com']
+      servers: ['https://api.print2a.com', 'https://print2a.com:5757']
     }
   },
   customCssUrl: "./src/swagger.css"

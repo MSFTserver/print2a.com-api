@@ -26,26 +26,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 /**
  * @swagger
  *
- * /:
- *   get:
- *     description: Get a response for an existing file or directory path
- *     produces:
- *       - application/json
- *     parameters:
- *       - [existing file path]: the path of the file or directory
- *         type: string
- *     responses:
- *       200:
- *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }
- *       404:
- *          description: The resource does not exist on the filesystem
- *
- */
-app.get("/", readOperations);
-
-/**
- * @swagger
- *
  * /GetFile:
  *   get:
  *     description: Get a response for an existing files data
@@ -79,6 +59,26 @@ app.get("/", readOperations);
  *
  */
 app.get("/LatestProjects", readOperations);
+
+/**
+ * @swagger
+ *
+ * /:
+ *   get:
+ *     description: Get a response for an existing file or directory path
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - [existing file path]: the path of the file or directory
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }
+ *       404:
+ *          description: The resource does not exist on the filesystem
+ *
+ */
+ app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);

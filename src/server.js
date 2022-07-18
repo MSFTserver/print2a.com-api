@@ -64,6 +64,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         name: fileLocation
  *         description: path to file
  *         in: query
+ *         required: true
  *     responses:
  *       200:
  *         description: the response either of data types (image, text, model, folder) depending on the file type

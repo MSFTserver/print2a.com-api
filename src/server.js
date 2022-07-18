@@ -37,7 +37,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *     parameters:
  *       - [existing file path]: the path of the file or directory
  *         type: string
- *         name: path/to/folder
+ *         name: path
+ *         description: path/to/folder
  *         in: path
  *     responses:
  *       200:

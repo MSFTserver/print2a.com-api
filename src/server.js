@@ -22,44 +22,6 @@ const corsOptions = {
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-
-/**
- * @swagger
- *
- * /GetFile:
- *   get:
- *     description: Get a response for an existing files data
- *     produces:
- *       - application/json
- *     parameters:
- *       - [existing file path]: the path of the file or directory
- *         type: string
- *     responses:
- *       200:
- *         description: The response with file data, proxying fs.readFile()
- *       404:
- *          description: The resource does not exist on the filesystem
- *
- */
-app.get("/GetFile", readOperations);
-
- /**
- * @swagger
- *
- * /LatesProjects:
- *   get:
- *     description: Get a response for the latest projects
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: The response with latest projects and stats array, proxying fs.readFile() - [{title, tags, links},{...newFileData}]
- *       404:
- *          description: The resource does not exist on the filesystem
- *
- */
-app.get("/LatestProjects", readOperations);
-
 /**
  * @swagger
  *
@@ -78,6 +40,41 @@ app.get("/LatestProjects", readOperations);
  *          description: The resource does not exist on the filesystem
  *
  */
+/**
+ * @swagger
+ *
+ * /GetFile:
+ *   get:
+ *     description: Get a response for an existing files data
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - [existing file path]: the path of the file or directory
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The response with file data, proxying fs.readFile()
+ *       404:
+ *          description: The resource does not exist on the filesystem
+ *
+ */
+ /**
+ * @swagger
+ *
+ * /LatesProjects:
+ *   get:
+ *     description: Get a response for the latest projects
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The response with latest projects and stats array, proxying fs.readFile() - [{title, tags, links},{...newFileData}]
+ *       404:
+ *          description: The resource does not exist on the filesystem
+ *
+ */
+app.get("/GetFile", readOperations);
+app.get("/LatestProjects", readOperations);
 app.get("/*", readOperations);
 
 // Mount the app

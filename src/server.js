@@ -22,13 +22,16 @@ const corsOptions = {
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 /**
  * @swagger
  *
  * /:
  *   get:
- *     summary: get data about file/folder
+ *     summary: get data for Chonky.io navigation
  *     description: Get a response for an existing file or directory path
+ *     name: path/to/folder
+ *     type: string
  *     produces:
  *       - application/json
  *     parameters:
@@ -41,28 +44,33 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *          description: The resource does not exist on the filesystem
  *
  */
+
 /**
  * @swagger
  *
  * /GetFile:
  *   get:
- *     description: Get a response for an existing files data
+ *     summary: get file data
+ *     description: Get a response for an existing files data depending on the file type (image, text, model, folder) the api will supply either a base64 image, a plaintext model, a text file or a zip file
+ *     name: path/to/file
  *     produces:
  *       - application/json
+ *       - text/plain
  *     parameters:
  *       - [existing file path]: the path of the file or directory
  *         type: string
  *     responses:
  *       200:
- *         description: The response with file data, proxying fs.readFile()
+ *         description: the response either of data types (image, text, model, folder) depending on the file type
  *       404:
  *          description: The resource does not exist on the filesystem
  *
  */
+
  /**
  * @swagger
  *
- * /LatesProjects:
+ * /LatestProjects:
  *   get:
  *     description: Get a response for the latest projects
  *     produces:

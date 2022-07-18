@@ -58,7 +58,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *     parameters:
  *       - [existing file path]: the path of the file or directory
  *         type: string
- *       - description: path to file
+ *         description: path to file
  *     responses:
  *       200:
  *         description: the response either of data types (image, text, model, folder) depending on the file type

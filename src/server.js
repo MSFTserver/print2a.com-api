@@ -41,7 +41,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *          description: The resource does not exist on the filesystem
  *
  */
- app.get("/GetFile", readOperations);
+app.get("/GetFile", readOperations);
 
  /**
  * @swagger
@@ -78,7 +78,7 @@ app.get("/LatestProjects", readOperations);
  *          description: The resource does not exist on the filesystem
  *
  */
- app.get("/*", readOperations);
+app.get("/*", readOperations);
 
 // Mount the app
 app.listen(port, host);

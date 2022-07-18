@@ -27,6 +27,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *
  * /:
  *   get:
+ *     summary: get data about file/folder
  *     description: Get a response for an existing file or directory path
  *     produces:
  *       - application/json

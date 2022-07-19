@@ -26,7 +26,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 /**
  * @swagger
  *
- * /:
+ * /{path}:
  *   get:
  *     summary: get data for Chonky.io navigation
  *     description: Get a response for an existing file or directory path
@@ -37,6 +37,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *       - [existing file path]: the path of the file or directory
  *         type: string
  *         name: path
+ *         in: path
  *         description: path/to/folder
  *     responses:
  *       200:
@@ -63,6 +64,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         description: path to file
  *         in: query
  *         required: true
+ *         example: print2a/SMGs/CZ/Misc/Sczorpion_Evo_3-AWCY/README.txt
  *     responses:
  *       200:
  *         description: the response either of data types (image, text, model, folder) depending on the file type

@@ -54,7 +54,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  * /GetFile:
  *   get:
  *     summary: get file data
- *     description: Get a response for an existing files data depending on the file type (image, text, model, folder) the api will supply either a base64 image, a plaintext model, a text file or a zip file
+ *     description: Get a response for an existing files data depending on the file type (image, text, model, folder)/n the api will supply either a base64 image, a plaintext model, a text file or a zip file
  *     produces:
  *       - application/json
  *       - text/plain
@@ -67,7 +67,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         required: true
  *         schema:
  *           type: string
- *           example: print2a/SMGs/CZ/Misc/Sczorpion_Evo_3-AWCY/README.txt
+ *           example: print2a/readme.md
  *     responses:
  *       200:
  *         description: the response either of data types (image, text, model, folder) depending on the file type

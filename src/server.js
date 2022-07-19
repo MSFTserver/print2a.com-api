@@ -47,9 +47,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *       200:
  *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }
  *         content: application/json
- *        schema:
- *         type: object
- *         example: { id: "print2a", name: "print2a", mode: "755", size: "0", sizeHuman: "0 B", username: "root", isDir: true, birthtime: "2020-01-01T00:00:00.000Z", mtime: "2020-01-01T00:00:00.000Z", childrenCount: 0, path: "/mnt/volume_sfo2_01/repo" }
+ *         schema:
+ *           type: object
+ *           example: { id: "print2a", name: "print2a", mode: "755", size: "0", sizeHuman: "0 B", username: "root", isDir: true, birthtime: "2020-01-01T00:00:00.000Z", mtime: "2020-01-01T00:00:00.000Z", childrenCount: 0, path: "/mnt/volume_sfo2_01/repo" }
  *       404:
  *          description: The resource does not exist on the filesystem
  *

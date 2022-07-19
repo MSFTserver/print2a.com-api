@@ -65,7 +65,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         description: path to file
  *         in: query
  *         required: true
- *     example: print2a/SMGs/CZ/Misc/Sczorpion_Evo_3-AWCY/README.txt
+ *         schema:
+ *           type: string
+ *           example: print2a/SMGs/CZ/Misc/Sczorpion_Evo_3-AWCY/README.txt
  *     responses:
  *       200:
  *         description: the response either of data types (image, text, model, folder) depending on the file type

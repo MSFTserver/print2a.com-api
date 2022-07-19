@@ -36,9 +36,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *     parameters:
  *       - [existing file path]: the path of the file or directory
  *         type: string
- *         name: path
- *         in: path
- *         description: path/to/folder
  *     responses:
  *       200:
  *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }

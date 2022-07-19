@@ -58,6 +58,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *   get:
  *     summary: get file data
  *     description: Get a response for an existing files data depending on the file type (image, text, model, folder) <br /><br /> the api will supply either a base64 image, a plaintext model, a text file or a zip file
+ *     produces:
+ *       - application/json
+ *       - text/plain
+ *       - application/zip
+ *       - image/png
+ *       - image/jpeg
  *     parameters:
  *       - [existing file path]: the path of the file or directory
  *         type: string

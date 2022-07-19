@@ -99,7 +99,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         content: application/json
  *         schema:
  *          type: array
- *          example: [{"title":"Latest Repo Statistics","tags":"Total Projects: 1299\nProject Files: 19325\nTotal Files: 26992\nTotal Repo Size: 67.8 GB","link":"#"},{{id: "print2a",name: "print2a",mode: "755",size: "0",sizeHuman: "0 B",username: "root",isDir: true,birthtime: "2020-01-01T00:00:00.000Z",mtime: "2020-01-01T00:00:00.000Z",childrenCount: 0,path: "/mnt/volume_sfo2_01/repo"}}]
+ *          example: [{"title":"Latest Repo Statistics","tags":"Total Projects: 1299\nProject Files: 19325\nTotal Files: 26992\nTotal Repo Size: 67.8 GB","link":"#"},{id: "print2a",name: "print2a",mode: "755",size: "0",sizeHuman: "0 B",username: "root",isDir: true,birthtime: "2020-01-01T00:00:00.000Z",mtime: "2020-01-01T00:00:00.000Z",childrenCount: 0,path: "/mnt/volume_sfo2_01/repo"}]
  *       404:
  *          description: The resource does not exist on the filesystem
  *

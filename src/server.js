@@ -40,6 +40,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *         in: path
  *         description: path/to/folder
  *         required: true
+ *         schema:
+ *           type: string
+ *           value: print2a
+ *           example: print2a
  *     responses:
  *       200:
  *         description: The response with file metadata, proxying fs.stat() — { id, name, mode, size, sizeHuman, username, isDir, birthtime, mtime, childrenCount, path }

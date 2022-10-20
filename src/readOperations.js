@@ -124,7 +124,7 @@ export default async (req, res) => {
         `${repoPath}/${filePath}`
       );
       res.set('Content-Type', 'text/plain');
-      if (['pdf','png', 'jpg'].includes(fileExt)) {
+      if (['pdf','png', 'jpg'].includes(fileExt.toLowerCase())) {
         res.send(fileContent.toString('base64'));
       } else if (fileExt.toLowerCase() === 'stl') {
         res.set('Contnet-Type', 'application/json');

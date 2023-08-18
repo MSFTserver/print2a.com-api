@@ -11,7 +11,7 @@ export default async (req, res) => {
   const mainPath = "/mnt/print2a-volume";
   const latestPath = "../print2a.com-stats/latest.json";
   const dlFolderName = "DLZIP";
-  const repoPath = `${mainPath}`;
+  const repoPath = `${mainPath}/repo`;
   const dlPath = `${mainPath}/${dlFolderName}`;
   let requestedPath = repoPath;
 

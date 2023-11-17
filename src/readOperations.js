@@ -7,7 +7,7 @@ import { getUserName, modeToOctal, sizeToHuman } from "./util.js";
 export default async (req, res) => {
   // The default starting path is the directory from which server is executed.
   // Otherwise, get the full path keyed under unnamed Express parameter '0'.
-  const print2aApiUrl = "https://print2a.com:5757";
+  const print2aApiUrl = "https://api.print2a.com";
   const mainPath = "/mnt/print2a-volume";
   const latestPath = "../print2a.com-stats/latest.json";
   const dlFolderName = "DLZIP";

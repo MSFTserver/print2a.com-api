@@ -8,7 +8,7 @@ import cors from "cors";
 import readOperations from "./readOperations.js";
 import chalk from "chalk";
 
-const port = process.env.PRINT2A_API_PORT || 5756;
+const port = process.env.PRINT2A_API_PORT || 5757;
 const host = process.env.PRINT2A_API_HOST || "0.0.0.0";
 
 const app = express();

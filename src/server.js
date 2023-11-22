@@ -109,6 +109,6 @@ app.get("/LatestProjects", readOperations);
 app.get("/*", readOperations);
 
 // Mount the app
-//app.listen(port, host);
-https.createServer(corsOptions, app).listen(port);
+app.listen(port, host);
+//https.createServer(corsOptions, app).listen(port);
 export default app;
